@@ -11,7 +11,7 @@ some of the results of DeepMind using a lower feature map
 resolution of 32 * 32 pixels, using Reaver, a modular deep RL open
 source framework, which uses Advantage Actor Critic (A2C) RL.
 I compared my results with Reaver’s results which was obtained
-by using 16*16 pixels feature map resolutions and DeepMind’s
+by using 16 * 16 pixels feature map resolutions and DeepMind’s
 results which was obtained with 64*64 pixels feature map
 resolutions. I was able to get similar results to Reaver in most
 cases and similar results to DeepMind in a few cases. I found that
