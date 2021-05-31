@@ -8,7 +8,7 @@ DeepMind made some progress on StarCraft with their paper
 “Starcraft II: A new challenge for reinforcement learning”, using
 Asynchronous Advantage Actor Critic (A3C) RL. I reproduced
 some of the results of DeepMind using a lower feature map
-resolution of 32*32 pixels, using Reaver, a modular deep RL open
+resolution of 32 * 32 pixels, using Reaver, a modular deep RL open
 source framework, which uses Advantage Actor Critic (A2C) RL.
 I compared my results with Reaver’s results which was obtained
 by using 16*16 pixels feature map resolutions and DeepMind’s
