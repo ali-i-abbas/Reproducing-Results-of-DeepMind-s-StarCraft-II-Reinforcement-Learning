@@ -19,3 +19,4 @@ the effect of increasing resolution was to make the algorithms
 more sample efficient but generally did not lead to better results.
 
 
+Please refer to "Ali Abbas - Final Project.pdf" for more details about results
