@@ -6,7 +6,7 @@ gin.external_configurable(tf.train.get_global_step, module='tf.train')
 gin.external_configurable(tf.train.piecewise_constant, module='tf.train')
 gin.external_configurable(tf.train.polynomial_decay, module='tf.train')
 gin.external_configurable(tf.initializers.orthogonal, 'tf.initializers.orthogonal')
-
+import reaver as rvr
 
 class SessionManager:
     def __init__(self, sess=None, base_path='results/', checkpoint_freq=100, training_enabled=True):
@@ -42,10 +42,20 @@ class SessionManager:
         return self.sess.run(tf_op, feed_dict=dict(zip(tf_inputs, inputs)))
 
     def on_update(self, step):
-        if not self.checkpoint_freq or not self.training_enabled or step % self.checkpoint_freq:
+        
+        if not self.training_enabled:
             return
+            
+        #print(str(rvr.utils.config.last_best_mean) + ' - ' + str(rvr.utils.config.best_mean))
+        if rvr.utils.config.best_mean > rvr.utils.config.last_best_mean:
+            rvr.utils.config.last_best_mean = rvr.utils.config.best_mean
+            self.saver.save(self.sess, self.checkpoints_path + '/ckpt', global_step=step)
+            return
+        
+        #if not self.checkpoint_freq or not self.training_enabled or step % self.checkpoint_freq:
+        #    return
 
-        self.saver.save(self.sess, self.checkpoints_path + '/ckpt', global_step=step)
+        #self.saver.save(self.sess, self.checkpoints_path + '/ckpt', global_step=step)
 
     def add_summaries(self, tags, values, prefix='', step=None):
         for tag, value in zip(tags, values):

@@ -62,6 +62,7 @@ class ActorCriticAgent(MemoryAgent):
 
         if not optimizer:
             optimizer = tf.train.AdamOptimizer(learning_rate=DEFAULTS['learning_rate'])
+            
 
         self.sess_mgr = sess_mgr
         self.value_coef = value_coef
@@ -155,6 +156,8 @@ class ActorCriticAgent(MemoryAgent):
 
     def on_finish(self):
         self.logger.on_finish()
+        #if self.sess_mgr.training_enabled:
+        #    self.sess_mgr.saver.save(self.sess_mgr.sess, self.sess_mgr.checkpoints_path + '/ckpt', global_step=self.sess_mgr.global_step)
 
     def make_minimize_ops(self):
         ops = [self.loss_terms, self.grads_norm]

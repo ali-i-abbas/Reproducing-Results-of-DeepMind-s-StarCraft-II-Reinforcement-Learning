@@ -27,7 +27,7 @@ class SC2Env(Env):
         render=False,
         reset_done=True,
         max_ep_len=None,
-        spatial_dim=16,
+        spatial_dim=32,
         step_mul=8,
         obs_features=None,
         action_ids=ACTIONS_MINIGAMES
@@ -49,6 +49,8 @@ class SC2Env(Env):
         # full action space, including outdated / unusable to current race / usable only in certain cases
         if action_ids == ACTIONS_ALL:
             action_ids = [f.id for f in actions.FUNCTIONS]
+            
+        #action_ids = [4,7,12]
 
         # by default use majority of obs features, except for some that are unnecessary for minigames
         # e.g. race-specific like creep and shields or redundant like player_id

@@ -4,6 +4,7 @@ import time
 import numpy as np
 from collections import deque, namedtuple
 
+import reaver as rvr
 
 class Logger:
     def on_start(self): ...
@@ -61,6 +62,14 @@ class StreamLogger(Logger):
             self.ep_rews_sum.append(self.env_rews[i])
             self.env_rews[i] = 0
             self.env_eps[i] += 1
+        
+        ep_rews = np.array(self.ep_rews_sum or [0])
+        
+        current_mean = ep_rews.mean()
+        if current_mean > rvr.utils.config.best_mean:
+            #print(str(current_mean) + ' - ' + str(rvr.utils.config.last_best_mean) + ' - ' + str(rvr.utils.config.best_mean))
+            rvr.utils.config.last_best_mean = rvr.utils.config.best_mean
+            rvr.utils.config.best_mean = current_mean
 
     def on_update(self, step, loss_terms, grads_norm, returns, adv, next_value):
         if step > 1 and step % self.log_freq:
@@ -85,6 +94,7 @@ class StreamLogger(Logger):
             entropy_loss=loss_terms[2],
             grads_norm=grads_norm,
         )
+        
 
         self.stream_logs(logs)
         if self.sess_mgr:

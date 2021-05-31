@@ -1,5 +1,9 @@
 import os
 
+
+best_mean = -1.0
+last_best_mean = -1.0
+
 SC2_MINIGAMES_ALIASES = {
     'beacon': 'MoveToBeacon',
     'shards': 'CollectMineralShards',
